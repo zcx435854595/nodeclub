@@ -5,14 +5,15 @@ var ObjectId  = Schema.ObjectId;
 
 /*
  * type:
- * reply: xx 回复了你的话题
- * reply2: xx 在话题中回复了你
+ * reply: xx 回复了你的情书
+ * reply2: xx 在情书中回复了你
  * follow: xx 关注了你
  * at: xx ＠了你
  */
 
 var MessageSchema = new Schema({
   type: { type: String },
+  content: { type: String },
   master_id: { type: ObjectId},
   author_id: { type: ObjectId },
   topic_id: { type: ObjectId },

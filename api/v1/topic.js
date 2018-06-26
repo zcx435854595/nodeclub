@@ -68,7 +68,7 @@ var show = function (req, res, next) {
 
   if (!validator.isMongoId(topicId)) {
     res.status(400);
-    return res.send({success: false, error_msg: '不是有效的话题id'});
+    return res.send({success: false, error_msg: '不是有效的情书id'});
   }
 
   ep.fail(next);
@@ -76,7 +76,7 @@ var show = function (req, res, next) {
   TopicProxy.getFullTopic(topicId, ep.done(function (msg, topic, author, replies) {
     if (!topic) {
       res.status(404);
-      return res.send({success: false, error_msg: '话题不存在'});
+      return res.send({success: false, error_msg: '情书不存在'});
     }
     topic = _.pick(topic, ['id', 'author_id', 'tab', 'content', 'title', 'last_reply_at',
       'good', 'top', 'reply_count', 'visit_count', 'create_at', 'author']);
@@ -194,7 +194,7 @@ exports.update = function (req, res, next) {
   TopicProxy.getTopicById(topic_id, function (err, topic, tags) {
     if (!topic) {
       res.status(400);
-      return res.send({success: false, error_msg: '此话题不存在或已被删除。'});
+      return res.send({success: false, error_msg: '此情书不存在或已被删除。'});
     }
 
     if (topic.author_id.equals(req.user._id) || req.user.is_admin) {
@@ -213,7 +213,7 @@ exports.update = function (req, res, next) {
         return res.send({success: false, error_msg: editError});
       }
 
-      //保存话题
+      //保存情书
       topic.title     = title;
       topic.content   = content;
       topic.tab       = tab;
@@ -233,7 +233,7 @@ exports.update = function (req, res, next) {
       });
     } else {
       res.status(403)
-      return res.send({success: false, error_msg: '对不起，你不能编辑此话题。'});
+      return res.send({success: false, error_msg: '对不起，你不能编辑此情书。'});
     }
   });
 };

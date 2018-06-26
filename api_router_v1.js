@@ -6,6 +6,7 @@ var toolsController   = require('./api/v1/tools');
 var replyController   = require('./api/v1/reply');
 var messageController = require('./api/v1/message');
 var middleware        = require('./api/v1/middleware');
+var captcha           = require('./api/v1/captcha');
 var limit             = require('./middlewares/limit');
 var config            = require('./config');
 
@@ -20,8 +21,8 @@ router.post('/topics/update', middleware.auth, topicController.update);
 
 
 // 主题收藏
-router.post('/topic_collect/collect', middleware.auth, topicCollectController.collect); // 关注某话题
-router.post('/topic_collect/de_collect', middleware.auth, topicCollectController.de_collect); // 取消关注某话题
+router.post('/topic_collect/collect', middleware.auth, topicCollectController.collect); // 关注某情书
+router.post('/topic_collect/de_collect', middleware.auth, topicCollectController.de_collect); // 取消关注某情书
 router.get('/topic_collect/:loginname', topicCollectController.list);
 
 // 用户
@@ -42,4 +43,7 @@ router.get('/message/count', middleware.auth, messageController.count);
 router.post('/message/mark_all', middleware.auth, messageController.markAll);
 router.post('/message/mark_one/:msg_id', middleware.auth, messageController.markOne);
 
+// 验证码
+router.get('/captcha', captcha.index);
+router.get('/captcha/*', captcha.index);
 module.exports = router;

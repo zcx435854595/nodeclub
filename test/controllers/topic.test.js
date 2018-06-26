@@ -43,7 +43,7 @@ describe('test/controllers/topic.test.js', function () {
       request.get('/topic/create')
         .set('Cookie', support.normalUserCookie)
         .expect(200, function (err, res) {
-          res.text.should.containEql('发布话题');
+          res.text.should.containEql('发布情书');
           done(err);
         });
     });
@@ -112,7 +112,7 @@ describe('test/controllers/topic.test.js', function () {
       request.get('/topic/' + support.testTopic._id + '/edit')
       .set('Cookie', support.normalUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('编辑话题');
+        res.text.should.containEql('编辑情书');
         done(err);
       });
     });
@@ -156,7 +156,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + wouldBeDeleteTopic._id + '/delete')
       .set('Cookie', support.normalUserCookie)
       .expect(200, function (err, res) {
-        res.body.should.eql({ success: true, message: '话题已被删除。' });
+        res.body.should.eql({ success: true, message: '情书已被删除。' });
         done(err);
       });
     });
@@ -167,7 +167,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/top')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已置顶。');
+        res.text.should.containEql('此情书已置顶。');
         done(err);
       });
     });
@@ -176,7 +176,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/top')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已取消置顶');
+        res.text.should.containEql('此情书已取消置顶');
         done(err);
       });
     });
@@ -187,7 +187,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/good')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已加精。');
+        res.text.should.containEql('此情书已加精。');
         done(err);
       });
     });
@@ -196,7 +196,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/good')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已取消加精。');
+        res.text.should.containEql('此情书已取消加精。');
         done(err);
       });
     });
@@ -277,7 +277,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/lock')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已锁定。');
+        res.text.should.containEql('此情书已锁定。');
         done(err);
       });
     });
@@ -300,7 +300,7 @@ describe('test/controllers/topic.test.js', function () {
       request.post('/topic/' + support.testTopic._id + '/lock')
       .set('Cookie', support.adminUserCookie)
       .expect(200, function (err, res) {
-        res.text.should.containEql('此话题已取消锁定。');
+        res.text.should.containEql('此情书已取消锁定。');
         done(err);
       });
     });

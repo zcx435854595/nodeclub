@@ -10,14 +10,14 @@
     </div>
   </div>
   <div class='panel'>
-    <div class="header"><%=user.loginname%> 创建的话题</div>
+    <div class="header"><%=user.loginname%> 写过的信</div>
     <div class="inner padding">
     <% if(typeof(topics) !== 'undefined' && topics.length > 0 ){ %>
     <%- partial('../topic/list',
     {topics:topics,pages:pages,current_pages:current_page,base:'/user/'+user.loginname+'/topics'}) %>
     <% }else{ %>
     <div class='inner'>
-      <p>无话题</p>
+      <p>去写第一封信</p>
     </div>
     <% } %>
   </div>

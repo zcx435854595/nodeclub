@@ -36,10 +36,10 @@ describe('test/controllers/user.test.js', function () {
         var texts = [
           '注册时间',
           '这家伙很懒，什么个性签名都没有留下。',
-          '最近创建的话题',
-          '无话题',
-          '最近参与的话题',
-          '无话题'
+          '最近写的情书',
+          '无情书',
+          '最近评论的情书',
+          '无情书'
         ];
         texts.forEach(function (text) {
           res.text.should.containEql(text);
@@ -183,7 +183,7 @@ describe('test/controllers/user.test.js', function () {
     it('should get /user/:name/collections ok', function (done) {
       request.get('/user/' + support.normalUser.loginname + '/collections')
       .expect(200, function (err, res) {
-        res.text.should.containEql('收藏的话题');
+        res.text.should.containEql('收藏的情书');
         done(err);
       });
     });
@@ -203,7 +203,7 @@ describe('test/controllers/user.test.js', function () {
     it('should get /user/:name/topics ok', function (done) {
       request.get('/user/' + support.normalUser.loginname + '/topics')
       .expect(200, function (err, res) {
-        res.text.should.containEql('创建的话题');
+        res.text.should.containEql('创建的情书');
         done(err);
       });
     });
@@ -213,7 +213,7 @@ describe('test/controllers/user.test.js', function () {
     it('should get /user/:name/replies ok', function (done) {
       request.get('/user/' + support.normalUser.loginname + '/replies')
       .expect(200, function (err, res) {
-        res.text.should.containEql(support.normalUser.loginname + ' 参与的话题');
+        res.text.should.containEql(support.normalUser.loginname + ' 参与的情书');
         done(err);
       });
     });

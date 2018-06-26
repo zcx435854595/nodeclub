@@ -5,6 +5,22 @@ var User         = require('../proxy').User;
 var messageProxy = require('../proxy/message');
 var _            = require('lodash');
 
+exports.sendSystemMessage = function (content, master_id, topic_id, callback) {
+  callback = callback || _.noop;
+  var ep = new eventproxy();
+  ep.fail(callback);
+
+  var message       = new Message();
+  message.type      = 'system';
+  message.content   = content;
+  message.master_id = master_id;
+  message.topic_id  = topic_id;
+  message.save(ep.done('message_saved'));
+  ep.all('message_saved', function (msg) {
+    callback(null, msg);
+  });
+};
+
 exports.sendReplyMessage = function (master_id, author_id, topic_id, reply_id, callback) {
   callback = callback || _.noop;
   var ep = new eventproxy();

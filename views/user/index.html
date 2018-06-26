@@ -19,7 +19,7 @@
           <% if (user.collect_topic_count) {%>
           <li>
             <a class='dark' href="/user/<%= user.loginname %>/collections" target='_blank'>
-              <span class='big collect-topic-count'><%= user.collect_topic_count %></span>个话题收藏
+              <span class='big collect-topic-count'><%= user.collect_topic_count %></span>个情书收藏
             </a>
           </li>
           <%}%>
@@ -83,7 +83,7 @@
 
   <div class='panel'>
     <div class='header'>
-      <span class='col_fade'>最近创建的话题</span>
+      <span class='col_fade'>最近写的情书</span>
     </div>
     <% if (typeof(recent_topics) !== 'undefined' && recent_topics.length > 0) { %>
     <%- partial('../topic/abstract', { collection: recent_topics, as: 'topic' }) %>
@@ -92,14 +92,14 @@
     </div>
     <% } else { %>
     <div class='inner'>
-      <p>无话题</p>
+      <p>还没有情书</p>
     </div>
     <% } %>
   </div>
 
   <div class='panel'>
     <div class='header'>
-      <span class='col_fade'>最近参与的话题</span>
+      <span class='col_fade'>最近评论的情书</span>
     </div>
     <% if (typeof(recent_replies) !== 'undefined' && recent_replies.length > 0) { %>
     <%- partial('../topic/abstract', { collection: recent_replies, as: 'topic' }) %>
@@ -108,7 +108,7 @@
     </div>
     <% } else { %>
     <div class='inner'>
-      <p>无话题</p>
+      <p>去评价他人的信</p>
     </div>
     <% } %>
   </div>

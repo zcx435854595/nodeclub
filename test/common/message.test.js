@@ -46,7 +46,7 @@ describe('test/common/message.test.js', function () {
           .expect(200, function (err, res) {
             var texts = [
               author.loginname,
-              '回复了你的话题',
+              '回复了你的情书',
               topic.title,
             ];
             texts.forEach(function (text) {
@@ -70,7 +70,7 @@ describe('test/common/message.test.js', function () {
           .expect(200, function (err, res) {
             var texts = [
               author.loginname,
-              '在话题',
+              '在情书',
               topic.title,
               '中@了你',
             ];

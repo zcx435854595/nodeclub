@@ -57,6 +57,19 @@
             <% } %>
           </div>
         </div>
+        <div class='control-group'>
+          <label class='control-label' for='re_pass'>验证码</label>
+          <div class='controls'>
+            <input class='input-xlarge' id='vcode' name='vcode' size='30' type='password' style="vertical-align: top; width: 150px;"/>
+            <span id="captcha">
+              <object data="" width="100" height="35"   
+              type="image/svg+xml"  
+              codebase="http://www.adobe.com/svg/viewer/install/">
+              </object>
+              <span class='click-box'></span>  
+            </span>
+          </div>
+        </div>
         <input type='hidden' name='_csrf' value='<%= csrf %>'/>
 
         <div class='form-actions'>
@@ -72,3 +85,17 @@
     </div>
   </div>
 </div>
+<script>
+  $(function(){
+    refreshCaptcha();
+
+    $('#captcha').find('.click-box').click(function(){
+      refreshCaptcha();
+    })
+  })
+  function refreshCaptcha(){
+    var $captcha = $('#captcha');
+    $captcha.find('object')[0].data = '/api/v1/captcha/' + new Date().getTime()
+  }
+</script>
+

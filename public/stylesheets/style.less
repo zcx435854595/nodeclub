@@ -8,7 +8,6 @@ body {
   background-color: @gray1;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, sans-serif !important;
 }
-
 #main {
   width: 90%;
   max-width: 1400px;
@@ -1314,4 +1313,25 @@ textarea.editor {
 
 .sponsor_outlink:hover {
   text-decoration: none;
+}
+
+#captcha {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 35px;
+  object {
+
+  }
+  .click-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+}
+.admin-topic_content {
+  display: none;
 }

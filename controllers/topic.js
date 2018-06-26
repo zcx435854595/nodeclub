@@ -39,7 +39,7 @@ exports.index = function (req, res, next) {
   var currentUser = req.session.user;
 
   if (topic_id.length !== 24) {
-    return res.render404('此话题不存在或已被删除。');
+    return res.render404('此情书不存在或已被删除。');
   }
   var events = ['topic', 'other_topics', 'no_reply_topics', 'is_collect'];
   var ep = EventProxy.create(events,
@@ -180,7 +180,7 @@ exports.showEdit = function (req, res, next) {
 
   Topic.getTopicById(topic_id, function (err, topic, tags) {
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.render404('此情书不存在或已被删除。');
       return;
     }
 
@@ -194,7 +194,7 @@ exports.showEdit = function (req, res, next) {
         tabs: config.tabs
       });
     } else {
-      res.renderError('对不起，你不能编辑此话题。', 403);
+      res.renderError('对不起，你不能编辑此情书。', 403);
     }
   });
 };
@@ -207,7 +207,7 @@ exports.update = function (req, res, next) {
 
   Topic.getTopicById(topic_id, function (err, topic, tags) {
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.render404('此情书不存在或已被删除。');
       return;
     }
 
@@ -237,7 +237,7 @@ exports.update = function (req, res, next) {
         });
       }
 
-      //保存话题
+      //保存情书
       topic.title     = title;
       topic.content   = content;
       topic.tab       = tab;
@@ -254,13 +254,13 @@ exports.update = function (req, res, next) {
 
       });
     } else {
-      res.renderError('对不起，你不能编辑此话题。', 403);
+      res.renderError('对不起，你不能编辑此情书。', 403);
     }
   });
 };
 
 exports.delete = function (req, res, next) {
-  //删除话题, 话题作者topic_count减1
+  //删除情书, 情书作者topic_count减1
   //删除回复，回复作者reply_count减1
   //删除topic_collect，用户collect_topic_count减1
 
@@ -276,7 +276,7 @@ exports.delete = function (req, res, next) {
     }
     if (!topic) {
       res.status(422);
-      return res.send({ success: false, message: '此话题不存在或已被删除。' });
+      return res.send({ success: false, message: '此情书不存在或已被删除。' });
     }
     author.score -= 5;
     author.topic_count -= 1;
@@ -287,7 +287,7 @@ exports.delete = function (req, res, next) {
       if (err) {
         return res.send({ success: false, message: err.message });
       }
-      res.send({ success: true, message: '话题已被删除。' });
+      res.send({ success: true, message: '情书已被删除。' });
     });
   });
 };
@@ -298,7 +298,7 @@ exports.top = function (req, res, next) {
   var referer  = req.get('referer');
 
   if (topic_id.length !== 24) {
-    res.render404('此话题不存在或已被删除。');
+    res.render404('此情书不存在或已被删除。');
     return;
   }
   Topic.getTopic(topic_id, function (err, topic) {
@@ -306,7 +306,7 @@ exports.top = function (req, res, next) {
       return next(err);
     }
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.render404('此情书不存在或已被删除。');
       return;
     }
     topic.top = !topic.top;
@@ -314,7 +314,7 @@ exports.top = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      var msg = topic.top ? '此话题已置顶。' : '此话题已取消置顶。';
+      var msg = topic.top ? '此情书已置顶。' : '此情书已取消置顶。';
       res.render('notify/notify', {success: msg, referer: referer});
     });
   });
@@ -330,7 +330,7 @@ exports.good = function (req, res, next) {
       return next(err);
     }
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.render404('此情书不存在或已被删除。');
       return;
     }
     topic.good = !topic.good;
@@ -338,7 +338,7 @@ exports.good = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      var msg = topic.good ? '此话题已加精。' : '此话题已取消加精。';
+      var msg = topic.good ? '此情书已加精。' : '此情书已取消加精。';
       res.render('notify/notify', {success: msg, referer: referer});
     });
   });
@@ -353,7 +353,7 @@ exports.lock = function (req, res, next) {
       return next(err);
     }
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+      res.render404('此情书不存在或已被删除。');
       return;
     }
     topic.lock = !topic.lock;
@@ -361,7 +361,7 @@ exports.lock = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      var msg = topic.lock ? '此话题已锁定。' : '此话题已取消锁定。';
+      var msg = topic.lock ? '此情书已锁定。' : '此情书已取消锁定。';
       res.render('notify/notify', {success: msg, referer: referer});
     });
   });

@@ -136,7 +136,7 @@ exports.getFullTopic = function (id, callback) {
   Topic.findOne({_id: id, deleted: false}, proxy.done(function (topic) {
     if (!topic) {
       proxy.unbind();
-      return callback(null, '此话题不存在或已被删除。');
+      return callback(null, '此情书不存在或已被删除。');
     }
     at.linkUsers(topic.content, proxy.done('topic', function (str) {
       topic.linkedContent = str;
@@ -146,7 +146,7 @@ exports.getFullTopic = function (id, callback) {
     User.getUserById(topic.author_id, proxy.done(function (author) {
       if (!author) {
         proxy.unbind();
-        return callback(null, '话题的作者丢了。');
+        return callback(null, '情书的作者丢了。');
       }
       proxy.emit('author', author);
     }));

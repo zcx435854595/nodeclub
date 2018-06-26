@@ -40,7 +40,7 @@
   * Merge pull request #193 from dead-horse/fix-block-count
   * fix block count
   * Merge pull request #190 from leizongmin/master
-  * 修正用户收藏的话题页面，页码链接不正确问题
+  * 修正用户收藏的情书页面，页码链接不正确问题
   * Merge pull request #186 from phoenixlzx/master
   * Fixed mongoose version
   * Merge pull request #182 from JacksonTian/assets_mini
@@ -98,7 +98,7 @@
   * 指定xss模块的配置信息，禁止HTML标签的style和class属性 (@lezongmin)
   * shanzhai'd Github T3T (@jiyinyiyong)
   * @jiyinyiyong 修改界面布局 fixed #139
-  * 添加话题详情主要内容的行高 (@kerngven)
+  * 添加情书详情主要内容的行高 (@kerngven)
   * 增加POST提交时间间隔限制 (@leizongmin)
   * 中英文间用空格
   * 发帖页面优化
@@ -190,7 +190,7 @@
   * * merge cnodeclub to nodeclub; * add more settings for custom site; * fixed upload.js not worked bug;
   * Merge pull request #4 from dead-horse/master
   * Merge pull request #11 from thebrecht/master
-  * 话题回复数纳入二级回复，样式调整
+  * 情书回复数纳入二级回复，样式调整
   * 支持table,邮件提醒
   * 加入亂數產生新密碼
   * fix style

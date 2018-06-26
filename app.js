@@ -24,6 +24,8 @@ require('./models');
 var GitHubStrategy = require('passport-github').Strategy;
 var githubStrategyMiddleware = require('./middlewares/github_strategy');
 var webRouter = require('./web_router');
+var AdminRouter = require('./admin_router');
+
 var apiRouterV1 = require('./api_router_v1');
 var auth = require('./middlewares/auth');
 var errorPageMiddleware = require('./middlewares/error_page');
@@ -158,6 +160,12 @@ app.use(busboy({
 
 // routes
 app.use('/api/v1', cors(), apiRouterV1);
+// 设置admin路由的模版
+app.use('/admin', function(req, res, next){
+  res.locals._layoutFile = 'admin_layout.html';
+  next();
+});
+app.use('/admin', AdminRouter);
 app.use('/', webRouter);
 
 // error handler

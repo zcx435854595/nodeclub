@@ -49,7 +49,7 @@ var config = {
   // 程序运行的端口
   port: 3000,
 
-  // 话题列表显示的话题数量
+  // 情书列表显示的情书数量
   list_topic_count: 20,
 
   // RSS配置
@@ -79,7 +79,7 @@ var config = {
   weibo_key: 10000000,
   weibo_id: 'your_weibo_id',
 
-  // admin 可删除话题，编辑标签。把 user_login_name 换成你的登录名
+  // admin 可删除情书，编辑标签。把 user_login_name 换成你的登录名
   admins: { user_login_name: true },
 
   // github 登陆的配置

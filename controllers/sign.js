@@ -18,6 +18,7 @@ exports.signup = function (req, res, next) {
   var email     = validator.trim(req.body.email).toLowerCase();
   var pass      = validator.trim(req.body.pass);
   var rePass    = validator.trim(req.body.re_pass);
+  var vcode     = validator.trim(req.body.vcode);
 
   var ep = new eventproxy();
   ep.fail(next);
@@ -27,6 +28,14 @@ exports.signup = function (req, res, next) {
   });
 
   // 验证信息的正确性
+  if (vcode != req.session.captcha) {
+    console.log(vcode);
+    console.log(req.session.captcha);
+    
+    
+    ep.emit('prop_err', '验证码错误。');
+    return;
+  }
   if ([loginname, pass, rePass, email].some(function (item) { return item === ''; })) {
     ep.emit('prop_err', '信息不完整。');
     return;

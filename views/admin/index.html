@@ -6,8 +6,14 @@
       <% [['all', '全部'], ['good', '精华']].concat(tabs).forEach(function (pair) {
         var value = pair[0];
         var text = pair[1]; %>
-        <a href="<%= value ? '/?tab=' + value : '/' %>"
+        <a href="<%= value ? '/admin?tab=' + value : '/' %>"
           class="topic-tab <%= value === tab ? 'current-tab' : '' %>"><%= text %></a>
+      <% }) %>
+      <% [['reviewing', '待审核'], ['pass', '审核通过'], ['reject', '审核拒绝']].forEach(function (pair) {
+        var value = pair[0];
+        var text = pair[1]; %>
+        <a href="<%= value ? '/admin?review_state=' + value : '/' %>"
+          class="topic-tab <%= value === review_state ? 'current-tab' : '' %>"><%= text %></a>
       <% }) %>
     </div>
     <% if (typeof(topics) !== 'undefined' && topics.length > 0) { %>
