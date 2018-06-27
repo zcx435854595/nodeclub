@@ -13,7 +13,7 @@ var async = require('async')
  */
 var sendMail = function (data) {
   if (config.debug) {
-    return;
+    // return;
   }
 
   // 重试5次
@@ -73,6 +73,28 @@ exports.sendResetPassMail = function (who, token, name) {
     '<p>我们收到您在' + config.name + '社区重置密码的请求，请在24小时内单击下面的链接来重置密码：</p>' +
     '<a href="' + SITE_ROOT_URL + '/reset_pass?key=' + token + '&name=' + name + '">重置密码链接</a>' +
     '<p>若您没有在' + config.name + '社区填写过注册信息，说明有人滥用了您的电子邮箱，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
+    '<p>' + config.name + '社区 谨上。</p>';
+
+  exports.sendMail({
+    from: from,
+    to: to,
+    subject: subject,
+    html: html
+  });
+};
+
+/**
+ * 发送情书邮件
+ * @param {String} who 接收人的邮件地址
+ * @param {String} content 发送的正文
+ */
+exports.sendLoveMail = function (who, content) {
+  var from = util.format('%s <%s>', config.name, config.mail_opts.auth.user);
+  var to = who;
+  var subject = '我还没忘记你，我通过' + config.name + '给你发了这封信';
+
+  var html = '<div>' + content +'</div>' + 
+    '<p>有人通过' + config.name + '社区给你发了这封信，如果您感到困扰，请删除此邮件，我们对给您造成的打扰感到抱歉。</p>' +
     '<p>' + config.name + '社区 谨上。</p>';
 
   exports.sendMail({

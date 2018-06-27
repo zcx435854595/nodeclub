@@ -31,6 +31,7 @@
     <span class='span-common toggle-content_btn'>显示隐藏正文</span>
     <% if (topic.review_state == 'reviewing') {%>
     <span class='span-common review-btn' data-id='<%= topic._id %>' data-review='pass'>通过</span>
+    <span class='span-common review-send-btn' data-id='<%= topic._id %>' >通过并发送</span>
     <span class='span-common review-btn' data-id='<%= topic._id %>' data-review='reject'>拒绝</span>
     <% } %>
   </span>

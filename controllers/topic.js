@@ -119,9 +119,13 @@ exports.create = function (req, res, next) {
 
 
 exports.put = function (req, res, next) {
-  var title   = validator.trim(req.body.title);
-  var tab     = validator.trim(req.body.tab);
-  var content = validator.trim(req.body.t_content);
+  var title     = validator.trim(req.body.title);
+  var tab       = validator.trim(req.body.tab);
+  var content   = validator.trim(req.body.t_content);
+  var to_email  = validator.trim(req.body.to_email);
+  var to_tel    = validator.trim(req.body.to_tel);
+
+
 
   // 得到所有的 tab, e.g. ['ask', 'share', ..]
   var allTabs = config.tabs.map(function (tPair) {
@@ -147,11 +151,13 @@ exports.put = function (req, res, next) {
       edit_error: editError,
       title: title,
       content: content,
+      to_email: to_email,
+      to_tel: to_tel,
       tabs: config.tabs
     });
   }
 
-  Topic.newAndSave(title, content, tab, req.session.user._id, function (err, topic) {
+  Topic.newAndSave(title, content, tab, req.session.user._id, to_email, to_tel, function (err, topic) {
     if (err) {
       return next(err);
     }
@@ -190,6 +196,8 @@ exports.showEdit = function (req, res, next) {
         topic_id: topic._id,
         title: topic.title,
         content: topic.content,
+        to_email: topic.to_email,
+        to_tel: topic.to_tel,
         tab: topic.tab,
         tabs: config.tabs
       });

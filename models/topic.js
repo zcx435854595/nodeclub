@@ -9,6 +9,9 @@ var TopicSchema = new Schema({
   title: { type: String },
   content: { type: String },
   author_id: { type: ObjectId },
+  to_email: { type: String },
+  to_tel: { type: String },
+  has_send: { type: Boolean, default: false},
   top: { type: Boolean, default: false }, // 置顶帖
   good: {type: Boolean, default: false}, // 精华帖
   lock: {type: Boolean, default: false}, // 被锁定主题

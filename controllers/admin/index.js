@@ -10,9 +10,10 @@
  */
 
 var at           = require('../../common/at');
-var message    = require('../../common/message');
+var message      = require('../../common/message');
 var User         = require('../../proxy').User;
 var Topic        = require('../../proxy').Topic;
+var mail         = require('../../common/mail');
 var config       = require('../../config');
 var eventproxy   = require('eventproxy');
 var cache        = require('../../common/cache');
@@ -125,8 +126,11 @@ exports.review = function (req, res, next) {
   var review_state = req.body.review_state;
   // var referer  = req.get('referer');
 
+  var ep = new eventproxy();
+  ep.fail(next);
 
-  Topic.getTopicById(topic_id, function (err, topic, tags) {
+
+  Topic.getTopicById(topic_id, function (err, topic) {
     if (!topic) {
       res.render404('此情书不存在或已被删除。');
       return;
@@ -138,14 +142,63 @@ exports.review = function (req, res, next) {
       if (err) {
         return next(err);
       }
-      //发送system消息
-      var content = '您的情书已经被审核，请去查看结果';  
-      message.sendSystemMessage(content, topic.author_id, topic._id);
+      ep.emit('topic', topic);
+      
+    });
+  });
+  ep.all('topic', function (topic) {
+    //发送system消息
+    var content = '您的情书已经被审核，请去查看结果';  
+    message.sendSystemMessage(content, topic.author_id, topic._id, function(){
+      res.send({
+        success: true
+      });
+    });  
+  })
+};
 
+exports.reviewAndSend = function (req, res, next) {
+  var topic_id     = req.body.topic_id;
+  var review_state = 'pass';
+  // var referer  = req.get('referer');
+
+  var ep = new eventproxy();
+  ep.fail(next);
+
+
+  Topic.getTopicById(topic_id, function (err, topic) {
+    if (!topic) {
+      res.render404('此情书不存在或已被删除。');
+      return;
+    }
+
+    topic.review_state = review_state;
+    topic.update_at = new Date();
+    topic.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      ep.emit('topic', topic);
+      
+    });
+  });
+  ep.all('topic', function (topic) {
+
+    if(topic.to_email) {
+      mail.sendLoveMail(topic.to_email, topic.content);
+    }
+    if(topic.to_tel) {
+      // mail.sendLoveMail(topic.to_email, topic.content);
+    }
+    
+    //发送system消息
+    var content = '您的情书已经被审核，请去查看结果';  
+    message.sendSystemMessage(content, topic.author_id, topic._id, function(){
       res.send({
         success: true
       });
     });
-  });
+
+  })
 };
 

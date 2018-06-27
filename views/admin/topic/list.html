@@ -77,5 +77,24 @@
         }
       })        
     });
+
+    $('.review-send-btn').click(function () {
+      var $this = $(this);
+      var topic_id = $this.data('id');
+      $.ajax({
+        url: '/admin/reviewAndSend',
+        method: 'POST',
+        data: {
+          'topic_id': topic_id,
+        }
+      }).done(function (data) {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert(data.message);
+        }
+      })        
+    });
+
   });
 </script>

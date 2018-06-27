@@ -30,22 +30,43 @@
         <form id='create_topic_form' action='/topic/create' method='post'>
           <% } %>
           <fieldset>
-            <span class="tab-selector">选择版块：</span>
-            <select name="tab" id="tab-value">
-              <option value="">请选择</option>
-              <%
-              var tabValue = '';
-              if (typeof(tab) !== 'undefined') {
-                tabValue = tab;
-              }
-              tabs.forEach(function (pair) {
-                var value = pair[0];
-                var text = pair[1];
-                %>
-                <option value="<%=value%>" <%= tabValue === value ? 'selected': '' %>><%=text%></option>
-
-              <%});%>
-            </select>
+            <div class="tab-selector-box">
+              <span class="tab-selector">选择版块：</span>
+              <select name="tab" id="tab-value">
+                <option value="">请选择</option>
+                <%
+                var tabValue = '';
+                if (typeof(tab) !== 'undefined') {
+                  tabValue = tab;
+                }
+                tabs.forEach(function (pair) {
+                  var value = pair[0];
+                  var text = pair[1];
+                  %>
+                  <option value="<%=value%>" <%= tabValue === value ? 'selected': '' %>><%=text%></option>
+  
+                <%});%>
+              </select>
+            </div>
+            <% if(typeof(action) !== 'undefined' && action == 'edit'){ %>
+            <div class="to_email-box">
+              <span class="tab-selector">对方邮箱：</span>
+              <input class="span5" type="text" value="<%=to_email%>" disabled name="to_email" id="to_email" placeholder="提交后就不能修改">
+            </div>
+            <div class="to_tel-box">
+                <span class="tab-selector">对方手机：</span>
+                <input class="span5" type="text" value="<%=to_tel%>" disabled name="to_tel" id="to_tel" placeholder="提交后就不能修改">
+            </div>
+            <% }else{ %>
+            <div class="to_email-box">
+                <span class="tab-selector">对方邮箱：</span>
+                <input class="span5" type="text" name="to_email" id="to_email" placeholder="提交后就不能修改">
+              </div>
+              <div class="to_tel-box">
+                  <span class="tab-selector">对方手机：</span>
+                  <input class="span5" type="text" name="to_tel" id="to_tel" placeholder="提交后就不能修改">
+              </div>
+            <% } %>
             <span id="topic_create_warn"></span>
             <textarea autofocus class='span9' id='title' name='title' rows='1'
                       placeholder="标题字数 10 字以上"
