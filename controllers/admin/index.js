@@ -173,6 +173,7 @@ exports.reviewAndSend = function (req, res, next) {
     }
 
     topic.review_state = review_state;
+    topic.has_send = true;
     topic.update_at = new Date();
     topic.save(function (err) {
       if (err) {
