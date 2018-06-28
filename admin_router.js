@@ -20,6 +20,8 @@ var router = express.Router();
 router.get('/', auth.adminRequired, admin.index);
 router.post('/review', auth.adminRequired, admin.review);
 router.post('/reviewAndSend', auth.adminRequired, admin.reviewAndSend);
+router.post('/sendLetter', auth.adminRequired, admin.sendLetter);
+
 
 if (!config.debug) { // 这个兼容破坏了不少测试
 	router.get('/:name', function (req, res) {

@@ -34,6 +34,9 @@
     <span class='span-common review-send-btn' data-id='<%= topic._id %>' >通过并发送</span>
     <span class='span-common review-btn' data-id='<%= topic._id %>' data-review='reject'>拒绝</span>
     <% } %>
+    <% if (topic.review_state == 'pass') {%>
+    <span class='span-common send-btn' data-id='<%= topic._id %>' >发送</span>
+    <% } %>
   </span>
   
   <div class="topic_title_wrapper">

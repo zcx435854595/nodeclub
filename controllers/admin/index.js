@@ -203,3 +203,46 @@ exports.reviewAndSend = function (req, res, next) {
   })
 };
 
+exports.sendLetter = function (req, res, next) {
+  var topic_id     = req.body.topic_id;
+
+  var ep = new eventproxy();
+  ep.fail(next);
+
+
+  Topic.getTopicById(topic_id, function (err, topic) {
+    if (!topic) {
+      res.render404('此情书不存在或已被删除。');
+      return;
+    }
+
+    topic.has_send = true;
+    topic.update_at = new Date();
+    topic.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      ep.emit('topic', topic);
+      
+    });
+  });
+  ep.all('topic', function (topic) {
+
+    if(topic.to_email) {
+      mail.sendLoveMail(topic.to_email, topic.content);
+    }
+    if(topic.to_tel) {
+      // mail.sendLoveMail(topic.to_email, topic.content);
+    }
+    
+    //发送system消息
+    var content = '您的情书已被发送，请去查看结果';  
+    message.sendSystemMessage(content, topic.author_id, topic._id, function(){
+      res.send({
+        success: true
+      });
+    });
+
+  })
+};
+
