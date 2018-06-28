@@ -215,6 +215,44 @@ exports.reduceCount = function (id, callback) {
   });
 };
 
+/**
+ * 将当前主题的点赞计数减1，用于取消点赞
+ * @param {String} id 主题ID
+ * @param {Function} callback 回调函数
+ */
+exports.reduceLikeCount = function (id, callback) {
+  Topic.findOne({_id: id}, function (err, topic) {
+    if (err) {
+      return callback(err);
+    }
+
+    if (!topic) {
+      return callback(new Error('该主题不存在'));
+    }
+    topic.like_count -= 1;
+    topic.save(callback);
+  });
+};
+
+/**
+ * 将当前主题的点赞计数加1，用于点赞
+ * @param {String} id 主题ID
+ * @param {Function} callback 回调函数
+ */
+exports.addLikeCount = function (id, callback) {
+  Topic.findOne({_id: id}, function (err, topic) {
+    if (err) {
+      return callback(err);
+    }
+
+    if (!topic) {
+      return callback(new Error('该主题不存在'));
+    }
+    topic.like_count += 1;
+    topic.save(callback);
+  });
+};
+
 exports.newAndSave = function (title, content, tab, authorId, to_email, to_tel, callback) {
   var topic       = new Topic();
   topic.title     = title;

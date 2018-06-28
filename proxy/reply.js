@@ -101,6 +101,44 @@ exports.getRepliesByTopicId = function (id, cb) {
 };
 
 /**
+ * 将当前评论的点赞计数减1，用于取消点赞
+ * @param {String} id 主题ID
+ * @param {Function} callback 回调函数
+ */
+exports.reduceLikeCount = function (id, callback) {
+  Reply.findOne({_id: id}, function (err, reply) {
+    if (err) {
+      return callback(err);
+    }
+
+    if (!reply) {
+      return callback(new Error('该回复不存在'));
+    }
+    reply.like_count -= 1;
+    reply.save(callback);
+  });
+};
+
+/**
+ * 将当前主题的点赞计数加1，用于点赞
+ * @param {String} id 主题ID
+ * @param {Function} callback 回调函数
+ */
+exports.addLikeCount = function (id, callback) {
+  Reply.findOne({_id: id}, function (err, reply) {
+    if (err) {
+      return callback(err);
+    }
+
+    if (!reply) {
+      return callback(new Error('该回复不存在'));
+    }
+    reply.like_count += 1;
+    reply.save(callback);
+  });
+};
+
+/**
  * 创建并保存一条回复信息
  * @param {String} content 回复内容
  * @param {String} topicId 主题ID

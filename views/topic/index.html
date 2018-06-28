@@ -70,11 +70,16 @@
         <% if (topic.tab) { %>
           <span> 来自 <%= topic.tabName %></span>
         <%}%>
+        <span class="like-count"> 点赞 <span id="topic_like_count"><%= topic.like_count %></span> 次</span>
 
         <% if (current_user) { %>
           <input class="span-common <%= is_collect ? '' : 'span-success' %> pull-right collect_btn" type="submit" value="<%= is_collect ? '取消收藏' : '收藏' %>" action="<%= is_collect ? 'de_collect' : 'collect' %>">
         <%}%>
 
+        <a class="pull-right topic-like-btn" data-id='<%= topic._id %>' data-type='topic'>
+          <i class="fa fa-2x fa-thumbs-o-up" title='点赞'></i>
+        </a>
+        
       </div>
       <% if (current_user) { %>
       <div id="manage_topic">
@@ -353,7 +358,18 @@
       });
     // END 用户 hover 在回复框时才显示点赞按钮
 
+    $('.topic-like-btn').click(function () {
+      var $this = $(this);
+      var type = $this.data('type');
+      var id = $this.data('id');
+      var data = { type: type, id: id };
+      $.post('/unlikethis', data, function (data) {
+        if (data.status === 'success') {
+          $('#topic_like_count').html(parseInt($('#topic_like_count').html()) + 1)
+        }
+      }, 'json');
 
+    })
   });
 
 </script>

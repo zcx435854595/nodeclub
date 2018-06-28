@@ -15,6 +15,7 @@ var user = require('./controllers/user');
 var message = require('./controllers/message');
 var topic = require('./controllers/topic');
 var reply = require('./controllers/reply');
+var like = require('./controllers/like');
 var rss = require('./controllers/rss');
 var staticController = require('./controllers/static');
 var auth = require('./middlewares/auth');
@@ -98,6 +99,10 @@ router.post('/reply/:reply_id/edit', auth.userRequired, reply.update); // 修改
 router.post('/reply/:reply_id/delete', auth.userRequired, reply.delete); // 删除某评论
 router.post('/reply/:reply_id/up', auth.userRequired, reply.up); // 为评论点赞
 router.post('/upload', auth.userRequired, topic.upload); //上传图片
+
+// 点赞或取消
+router.post('/likethis', auth.userRequired, like.likethis); // 点赞
+router.post('/unlikethis', auth.userRequired, like.unlikethis); // 取消点赞
 
 // static
 router.get('/about', staticController.about);
